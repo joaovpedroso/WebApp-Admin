@@ -1,6 +1,7 @@
 <?php
+
 namespace App\Helpers;
-use App\Helpers\Session;
-    
-    $sessao = new Session();
-    $sessao->destroy();
+
+    session_start();
+    unset( $_SESSION["usuario"] );
+    header("Location: ../../index.php");

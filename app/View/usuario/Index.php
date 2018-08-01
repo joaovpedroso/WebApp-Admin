@@ -1,10 +1,9 @@
 <?php 
 $this->tituloPagina = "Listar Usuários";
 $this->layout('layout.cabecalho'); ?>
-
-<section class="content">
-    <div class="container">
+<div class="container">
     <div class="table-responsive ">
+        <a href="/usuarios/adicionar" class="btn btn-primary pull-right">Novo Cadastro</a>
         <table class="table table-striped table-hover table-bordered">
             <thead>
                 <tr>
@@ -49,6 +48,5 @@ $this->layout('layout.cabecalho'); ?>
             </tbody>    
         </table>
     </div>
-    </div>
-</section>
+</div>
 <?php $this->layout('layout.rodape'); ?>

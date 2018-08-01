@@ -10,30 +10,41 @@ use App\Helpers\Config;
         
         <title><?= "WebApp | ".$this->tituloPagina ;?></title>
         
-        <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="http://getbootstrap.com/docs/4.0/examples/floating-labels/floating-labels.css" rel="stylesheet">
+        <link href="<?php echo Config::$PATH_ASSETS ?>/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="<?php echo Config::$PATH_ASSETS ?>/css/dataTables.bootstrap.min.css" rel="stylesheet">
+        <link href="<?php echo Config::$PATH_ASSETS ?>/css/jquery.dataTables.min.css" rel="stylesheet">
+        <link href="<?php echo Config::$PATH_ASSETS ?>/css/apprise.min.css" rel="stylesheet">
+        <link href="<?php echo Config::$PATH_ASSETS ?>/css/style.css" rel="stylesheet">
+        
+        <script src="<?php echo Config::$PATH_ASSETS ?>/bootstrap/js/jquery.min.js"></script>
+        <script src="<?php echo Config::$PATH_ASSETS ?>/bootstrap/js/bootstrap.min.js"></script>
+        <script src="<?php echo Config::$PATH_ASSETS ?>/js/jquery.dataTables.min.js"></script>
+        <script src="<?php echo Config::$PATH_ASSETS ?>/js/jquery.maskedinput.js"></script>
+        <script src="<?php echo Config::$PATH_ASSETS ?>/js/apprise.min.js"></script>
+        <script src="<?php echo Config::$PATH_ASSETS ?>/js/jqBootstrapValidation.js"></script>
     </head>
     
-    <body class="text-center">
-        <div class="container text-center well">
+    <div class="container text-center well">
 
-            <form class="form-signin" action="/login" method="POST">
+        <form class="form-inline" action="/login" method="POST">
 
-                <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+            <legend>Login</legend>
 
-                    <div class="form-label-group">
-                        <input type="email" id="email" name="email" class="form-control" placeholder="Informe o Email" required autofocus>
-                        <label for="email">Email</label>
-                    </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" placeholder="exemplo@exemplo.com" name="email" required
+                    data-validation-required-message="Preencha o Email" 
+                    data-validation-email-message="Informe um Email válido" >
+            </div>
 
-                <div class="form-label-group">
-                    <input type="password" id="senha" name="senha" class="form-control" placeholder="Senha" required>
-                    <label for="senha">Senha</label>
-                </div>
+            <div class="form-group">
+                <label for="pwd">Senha:</label>
+                <input type="password" class="form-control" name="senha" required
+                    data-validation-required-message="Informe a senha" >
+            </div>
 
-               <button class="btn btn-primary">Entrar</button>
-            </form>
+           <button class="btn btn-primary">Entrar</button>
+        </form>
 
-            
-        </div>
-    </body>
+    </div>
+<?php $this->layout('layout.rodape'); ?>

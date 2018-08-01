@@ -3,7 +3,7 @@ $this->tituloPagina = "Cadastrar Tipo Endereço";
 $this->layout('layout.cabecalho'); ?>
 <div class="container">
     
-    <form method="post" class="form" action="/enderecos">
+    <form method="post" class="form" novalidate action="/enderecos">
         
         <legend>Cadastro de Tipos de Endereço</legend>
         <div class="row">

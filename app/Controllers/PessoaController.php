@@ -48,14 +48,14 @@ class PessoaController extends Controller {
             $pessoa = new Pessoa();
             
             $pessoa->setNome( Util::removerEspaco( $dados["nome"] ) );
-            $pessoa->setCpf( Util::formatarCpf( $dados["cpf"] ) );
+            $pessoa->setCpf( Util::removerEspaco( $dados["cpf"] ) );
             $pessoa->setRg( Util::removerEspaco( $dados["rg"] ) ) ;
             $pessoa->setDatadenascimento( Util::removerEspaco( $dados["datadenascimento"] ) );
             $pessoa->setIdtiposexo( Util::removerEspaco( $dados["sexo"] ) );
             $pessoa->setIdsituacao( Util::removerEspaco( $dados["status"] ) );
 //            print 'ID SITUACAO'.$pessoa->getIdsituacao();
 //            exit;
-            $pessoa->setIdCpf( Util::idCpf( Util::formatarCpf( $dados["cpf"] ) ) );
+            $pessoa->setIdCpf( Util::idCpf( Util::removerEspaco( $dados["cpf"] ) ) );
             
             
             if( !isset( $dados["idcpf"] ) ){

@@ -84,7 +84,7 @@ class Pessoa extends Model{
         //Instancia conexao com o PDO
         $pdo        = Conecta::getPdo();
         //Cria o SQL
-        $sql        = "SELECT *, date_format(datadenascimento, '%d/%m/%Y') as datadenascimento, date_format( date( created ), '%d/%m/%Y' )as cadastro FROM $this->table WHERE idcpf = ? LIMIT 1";
+        $sql        = "SELECT *, date_format(datadenascimento, '%d/%m/%Y') as datadenascimento FROM $this->table WHERE idcpf = ? LIMIT 1";
         //Prepara o SQL
         $consulta   = $pdo->prepare($sql);
         //Atribui valor aos parametros descritos no SQL

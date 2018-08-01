@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Model;
 use App\Models\Pessoa;
 use App\Config\Conecta;
 use App\Helpers\Util;
@@ -48,7 +49,6 @@ class Usuario extends Pessoa{
     public function login(String $email,String $senha){
         $pdo        = Conecta::getPdo();
         $senha = md5( $senha );
-        
         $sql        = "SELECT * FROM $this->table u "
                     . "INNER JOIN pessoa p ON p.idcpf = u.idcpf "
                     . "WHERE u.email = ? AND u.senha = ? and p.idsituacao = ? LIMIT 1";
@@ -65,12 +65,11 @@ class Usuario extends Pessoa{
             $pessoa = new Pessoa();
             $pess   = $pessoa->getOne( $idcpf );
 
+            session_start();
             $_SESSION["usuario"] = array(
                 'id'=>$idcpf,
                 'nome'=>$pess->nome,
                 'nascimento'=> $pess->datadenascimento,
-                'cadastro'=>$pess->cadastro,
-                'email'=>$pess->email,
                 'email'=>$email
             );
             

@@ -1,19 +1,21 @@
-<?php 
-    $this->tituloPagina = "Cadastrar Usuário";
-    $this->layout('layout.cabecalho'); 
-
-    use App\Controllers\Controller;
-    use App\Controllers\SituacaoController;
-    use App\Controllers\TipoEnderecoController;
-    use App\Controllers\TipoSexoController;
+<?php
+namespace App\View;
+     
+use App\Controllers\Controller;
+use App\Controllers\SituacaoController;
+use App\Controllers\TipoEnderecoController;
+use App\Controllers\TipoSexoController;
     
+    $controller = new Controller();
+    $controller->layout('layout.cabecalho');  
+    //Instanciar os Objetos para realizar os Selects
     $situacao           = new SituacaoController();
     $tipoendereco       = new TipoEnderecoController();
     $tiposexo           = new TipoSexoController();
 ?>
 <div class="container">
     
-    <form method="post" class="form" novalidate action="/usuarios">
+    <form method="post" class="form" novalidate action="../controllers/PessoaController.php">
         
         <legend>Cadastro de Usuário</legend>
         
@@ -262,7 +264,7 @@
             </div>
         </div><!-- Final ROW -->
         <br>
-        <button class="btn btn-warning pull-right">
+        <button type="submit" name="salvar" class="btn btn-warning pull-right">
             <i class="glyphicon glyphicon-floppy-save"></i>
                 Salvar 
         </button>
@@ -278,4 +280,4 @@
     $("#uf").val('');
     $("#status").val('1');
 </script>
-<?php $this->layout('layout.rodape'); ?>
+<?php $controller->layout('layout.rodape'); ?>

@@ -1,29 +1,7 @@
-<?php use App\Helpers\Util; ?>
-        </div>
 
-    <script src="<?php echo Util::asset('assets/bower_components/jquery/dist/jquery.min.js'); ?>"></script>
-    <!-- Bootstrap -->
-    <script src="<?php echo Util::asset('assets/bower_components/bootstrap/dist/js/bootstrap.min.js') ?>"></script>
-    <!-- SlimScroll -->
-    <script src="<?php echo Util::asset('assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js') ?>"></script>
-    <!-- FastClick -->
-    <script src="<?php echo Util::asset('assets/bower_components/fastclick/lib/fastclick.js') ?>"></script>
-    <!-- AdminLTE App -->
-    <script src="<?php echo Util::asset('assets/dist/js/adminlte.min.js') ?>"></script>
-    <!-- AdminLTE Demo -->
-    <script src="<?php echo Util::asset('assets/dist/js/demo.js') ?>"></script>
-
-    <script src="<?php echo Util::asset('assets/js/jquery.dataTables.min.js') ?>"></script>
-    <script src="<?php echo Util::asset('assets/js/jquery.maskedinput.js') ?>"></script>
-    <script src="<?php echo Util::asset('assets/js/apprise.min.js') ?>"></script>
-    <script src="<?php echo Util::asset('assets/js/jqBootstrapValidation.js') ?>"></script>
-    <script>
-        $(document).ready(function () {
-            $('.sidebar-menu').tree()
-        })
-    </script>
     </body>
 </html>
+
 <script type="text/javascript">
     //Apricar função javascript que verifica se os campos estao preenchidos
     $(function () { 
@@ -37,7 +15,7 @@
         } else {
             $.ajax({
                 type: 'post',
-                url: '<?php Util::helpers("Call");?>',
+                url: "../../helpers/Call.php",
                 data: {email : email}
             }).done(function(msg){
                 
@@ -60,7 +38,7 @@
             //console.log('Data Informada '+data);
             $.ajax({
                 type: 'post',
-                url: '<?php Util::helpers("Call");?>',
+                url: "../../helpers/Call.php",
                 data: {data : data}
             }).done(function(msg){
                 
@@ -75,7 +53,6 @@
     }
     
     function buscarCep(cep){
-        
         if( cep == null || cep == "" || cep == "_____-___"){
             apprise('Informe um Cep', {animated:true});
             $("#cep").val("");
@@ -85,21 +62,13 @@
 
             $.ajax({
                 type: 'post',
-                url: '/call',
+                url: "../../helpers/Call.php",
                 data: {cep : cep}
             }).done(function(msg){
-                
-                var dados = [];
-                dados = msg;
-                console.log('Retorno');
-                console.log(dados);
-                console.log(dados.bairro);
-                return;
                 
                 //Esconder Mascara de Load
                 $(".mascara").hide();
                 if( msg == "{}" || msg == ""){
-                    console.log('Sem retorno');
                     apprise('Cep Não Encontrado', {animated:true});
                     $("#cep").val("");
                     $("#endereco").val("");
@@ -109,7 +78,6 @@
                 } else {
                     var uf          = msg.estado;
                     if( uf == null ) {
-                        console.log('Uf Nao retornada');
                         apprise('Cep Não Encontrado', {animated:true});
                         $("#cep").val("");   
                         $("#endereco").val("");
@@ -117,10 +85,6 @@
                         $("#estado").val("");
                         $("#cidade").val("");                     
                     } else {
-                        console.log('Entrou aqui');
-                        console.log(msg);
-                        console.log("estado");
-                        return;
                         var estado      = msg.estado;
                         var id_cidade   = msg.ibge;
                         var cidade      = msg.cidade;
@@ -152,7 +116,7 @@
             //Chama função ajax, passando atributo por post, chamando a pagina, com os atributos {nome do campo:valor}
             $.ajax({
                 type: 'post',
-                url: '<?php Util::helpers("Call");?>',
+                url: "../../helpers/Call.php",
                 data: {cpf:cpf}
             //Caso de certo a função
             }).done (function(msg){

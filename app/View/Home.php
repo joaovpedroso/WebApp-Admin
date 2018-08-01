@@ -1,19 +1,13 @@
 <?php 
 $this->tituloPagina = "Home";
-$this->layout('layout.cabecalho'); 
-
-use App\Helpers\Session;
-use App\Helpers\Util;
-Session::verificaSessao();
-
-?>
+$this->layout('layout.cabecalho'); ?>
 <div class="container">
     
     <div class="text-capitalize">
         
         <div class="col-md-3">
             <a href="/usuarios/adicionar">
-                <img src="<?php echo Util::asset('');?>assets/img/user_icon.ico" class="img img-responsive" alt="Cadastrar Usuário" title="Cadastrar Usuário">
+                <img src="assets/img/user_icon.ico" class="img img-responsive" alt="Cadastrar Usuário" title="Cadastrar Usuário">
                 <p class="text-center">Cadastrar Usuário</p>
             </a>
         </div>

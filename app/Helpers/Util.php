@@ -24,11 +24,11 @@ class Util {
         return $date->format('d/m/Y');
     }
     
-    public static function retirarPonto($item){
+    public function retirarPonto($item){
         return str_replace(".", "", $item);
     }
     
-    public static function retirarHifen($item) {
+    public function retirarHifen($item) {
          return str_replace("-", "", $item);
     }
     
@@ -131,15 +131,8 @@ class Util {
         $_value['complemento'] = $value['complemento'];
         return json_encode($_value);
    }
-   
-    public static function formatarCpf($dados){
-        $dados = self::removerEspaco($dados);
-        $dados = self::retirarPonto($dados);
-        $dados = self::retirarHifen($dados);
-        return $dados;
-    }
-   
-    public function verificaCpf($cpf){
+    
+   public function verificaCpf($cpf){
        //Concatena o cpf com o formato de iD do banoc
        $cpf = "1000$cpf";
        //Instancia novo obj da classe pessoa para utilizar o metod getOne - que selecionaraá os dados de uma unica pessoa
@@ -201,21 +194,4 @@ class Util {
         return $tel;
     }
        
-    public static function asset( $url ){
-        return "http://localhost:8080/".$url;
-    }
-    
-    public static function helpers($url){
-        $dir = dirname(__FILE__,2)."/Helpers/$url.php";
-        $dir = str_replace("\\", "/", $dir);
-        return $dir;
-    }
-    
-    public static function headerTitle($text){
-       if( empty( $text ) ){
-           return "WebApp |";
-       } else {
-           return "WebApp | ".$text;
-       }
-    }
 }

@@ -7,7 +7,16 @@ use App\Models\Pessoa;
 class HomeController extends Controller {
     
     public function __construct() {
-
+        //Verificar se o Usuário está logado
+        if( !isset( $_SESSION ) ){
+            session_start();
+        }
+        
+        if( !isset( $_SESSION["usuario"]["id"] ) ){
+            header("Location: /login");
+            //Encerrar a aplicação
+            die();
+        }
     }
     
     public function index(ServerRequestInterface $request, ResponseInterface $response){

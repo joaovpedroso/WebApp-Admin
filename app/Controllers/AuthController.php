@@ -3,7 +3,7 @@ namespace App\Controllers;
 use \Psr\Http\Message\ServerRequestInterface;
 use \Psr\Http\Message\ResponseInterface;
 use App\Models\Usuario;
-   
+
 class AuthController extends Controller {
    
     public function index(ServerRequestInterface $request, ResponseInterface $response){
@@ -29,8 +29,11 @@ class AuthController extends Controller {
     
     public function sair(ServerRequestInterface $request, ResponseInterface $response){
         
+        session_start();
+        //Deletar a Sessao
         unset( $_SESSION["usuario"] );
-        return $response->withRedirect('/login');
+        //Direcionar para a tela de login
+        return $response->withRedirect('/');
     }  
      
 }

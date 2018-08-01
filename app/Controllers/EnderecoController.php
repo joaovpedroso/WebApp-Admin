@@ -7,10 +7,9 @@ use App\Helpers\Util;
 class EnderecoController {
     
     public function salvar($dados, $idcpf){
-
         $endereco = new Endereco();
         $estado   = new Estado();
-        $endereco->setIdcpf( Util::idCpf( Util::formatarCpf( $dados["cpf"] ) ) );
+        $endereco->setIdcpf( Util::idCpf( Util::removerEspaco( $dados["cpf"] ) ) );
         $endereco->setCep( Util::removerEspaco( $dados["cep"] ) );
         $endereco->setComplemento( Util::removerEspaco( $dados["complemento"] ) );
         $endereco->setEndereco( Util::removerEspaco( $dados["endereco"]) );
@@ -20,7 +19,7 @@ class EnderecoController {
         $endereco->setIdEstado( $estado->getOne( Util::removerEspaco( $dados["estado"] ) )->idestado );
         $endereco->setBairro( Util::removerEspaco( $dados["bairro"] ) );
         $idendereco = $endereco->getOne($idcpf)->idendereco;
-
+        
         if( isset( $idendereco ) ) {
             $endereco->Update( $idendereco );
         } else {

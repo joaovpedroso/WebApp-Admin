@@ -1,13 +1,11 @@
 <?php 
 $this->tituloPagina = "Tipos de Endereço";
 $this->layout('layout.cabecalho'); ?>
-
-
-<section class="content-header">
+<div class="container">
     <legend>Tipos de Endereço Cadastrados</legend>
-</section>
-
-<section class="content">
+    
+    <a href="/enderecos/adicionar" class="btn btn-primary pull-right">Novo Cadastro</a>
+    <div class="clearfix"></div>
     <div class="table-responsive ">
         <table class="table table-striped table-hover table-bordered">
             <thead>
@@ -35,5 +33,5 @@ $this->layout('layout.cabecalho'); ?>
             </tbody>
         </table>
     </div>
-</section>
+</div>
 <?php $this->layout('layout.rodape'); ?>

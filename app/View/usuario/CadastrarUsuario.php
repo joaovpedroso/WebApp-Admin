@@ -1,280 +1,39 @@
-<?php
-    $this->tituloPagina = "Cadastrar Usuário";
-    $this->layout('layout.cabecalho'); 
-
-    use App\Controllers\SituacaoController;
-    use App\Controllers\TipoEnderecoController;
-    use App\Controllers\TipoSexoController;
+<?php 
+$this->tituloPagina = "Cadastrar Usuário";
+$this->layout('layout.cabecalho'); ?>
+<div class="container">
+   
+    <form action="/usuarios" method="POST">
+        <input type="text" name="nome" placeholder="Nome">
+        <input type="text" name="cpf" placeholder="CPF">
+        <input type="hidden" name="id_cpf">
+        <input type="text" name="rg"  placeholder="RG">
+        <input type="date" name="datadenascimento">
+        <input type="number" name="sexo"  placeholder="Sexo">
+        <input type="number" name="status"  placeholder="Sttatus 1 - 2">
+        <input type="email" name="email"  placeholder="Email">
+        <input type="password" name="senha">
+        <label>Estado </label>
+        <input type="text" name="estado" maxlength="2"  placeholder="Estado Sigla">
+        <label> Cidade - ID Cidade </label>
+        <input type="text" name="cidade"  placeholder="Cidade">
+        <input type="number" name="id_cidade" placeholder="Id Cidade">
+        <input type="text" name="cep"  placeholder="CEP">
+        <input type="text" name="complemento"  placeholder="Complemento">
+        <input type="text" name="endereco"  placeholder="Endereço">
+        <input type="number" name="numero"  placeholder="Numero">
+        <label>ID CIDADE</label>
+        <input type="number" name="id_cidade"  placeholder="ID CIDADE">
+        <input type="number" name="id_tipoendereco"  placeholder="TIPO ENDERECO">
+        <input type="text" name="bairro"  placeholder="Bairro">
+        <label>Telefone - Ramal - </label>
+        <input type="text" name="telefone"  placeholder="(xx)3622-2222">
+        <input type="text" name="celular"  placeholder="(xx)9 9999-9999">
+        <input type="text" name="ramal"  placeholder="Ramal">
+        
+        
+        <button>Salvar</button>
+    </form>
     
-    $situacao           = new SituacaoController();
-    $tipoendereco       = new TipoEnderecoController();
-    $tiposexo           = new TipoSexoController();
-?>
-<form method="post" class="form" action="/usuarios">
-    <section class="content-header">
-        <legend>Cadastro de Usuário</legend>
-    </section>
-    
-    <section class="content">
-        <div class="control-group">
-           <label class="control-label">Nome</label>
-           <div class="controls">
-               <input type="text" name="nome" class="form-control" placeholder="Informe Seu Nome" required
-                   data-validation-required-message="Informe seu Nome">
-           </div>
-        </div>
-
-        <div class="row">
-
-            <div class="col-md-6">
-                <div class="control-group">
-                    <label class="control-label">Email</label>
-                    <div class="controls">
-                        <input type="email" name="email" id="email" class="form-control" onblur="validarEmail(this.value)" placeholder="exemplo@exemplo.com" required
-                               data-validation-email-message="Email Incorreto"
-                               data-validation-required-message="Informe seu Email">
-                    </div>
-                </div>
-            </div>    
-
-            <div class="col-md-3">
-                <div class="control-group">
-                    <label class="control-label">Senha</label>
-                    <div class="controls">
-                        <input type="password" name="senha" id="senha" class="form-control" required 
-                        maxlength="12"
-                        data-validation-maxlength-message="Máximo 12 Caracteres" 
-                        data-validation-required-message="Informe uma Senha">
-                    </div>
-                </div>
-            </div>  
-
-            <div class="col-md-3">
-                <div class="control-group">
-                    <label class="control-label">Re-Digite a Senha</label>
-                    <div class="controls">
-                        <input type="password" name="senha" class="form-control"  required
-                               maxlength="12"
-                               data-validation-maxlength-message="Máximo 12 Caracteres" 
-                               data-validation-required-message="Informe uma Senha"
-                               data-validation-match-match="senha"
-                               data-validation-match-message="As senhas Digitadas São Diferentes">
-                    </div>
-                </div>
-            </div>  
-
-        </div><!-- Final ROW -->
-
-        <div class="row">
-            <div class="col-md-6">
-                <div class="control-group">
-                    <label class="control-label">CPF</label>
-                    <div class="controls">
-                        <input type="text" name="cpf" id="cpf" class="form-control" onblur="verificaCpf(this.value)" required
-                               data-validation-required-message="Informe seu CPF" maxlength="14"
-                               data-validation-maxlength-message="Informe no Máximo 11 Caracteres">
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="control-group">
-                    <label class="control-label">RG</label>
-                    <div class="controls">
-                        <input type="text" name="rg" class="form-control" required
-                            data-validation-required-message="Informe seu RG">
-                    </div>
-                </div>
-            </div>
-
-        </div><!-- Final ROW -->
-
-        <div class="row">
-            <div class="col-md-3">
-                <div class="control-group">
-                    <label class="control-label">Data de Nascimento</label>
-                    <div class="controls">
-                        <input type="date" name="datadenascimento" id="datadenascimento" class="form-control" onblur="validarData(this.value)" required
-                            data-validation-required-message="Informe sua Data de Nascimento">
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="control-group">
-                    <label class="control-label">Sexo</label>
-                    <select name="sexo" id="sexo" class="form-control" required
-                            data-validation-required-message="Selecione">
-                        <option value="">Selecione</option>
-                        <?php
-                            $dados = $tiposexo->getAll();
-                            //SELECIONAR OPÇÔES DO BANCO DE DADOS
-                            foreach( $dados as $dado){
-                                echo "<option value=".$dado->idtiposexo.">$dado->descricao</option>";
-                            }
-                        ?>
-                    </select>
-                </div>
-            </div>
-        </div><!-- Final ROW -->
-
-        <div class="row">
-
-            <div class="col-md-2">
-                <div class="control-group">
-                    <label class="control-label">CEP</label>
-                    <div class="controls">
-                        <input type="text" name="cep" id="cep" class="form-control" onblur="buscarCep(this.value)" required
-                            data-validation-required-message="Informe seu CEP">
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="control-group">
-                    <label class="control-label">Endereço</label>
-                    <div class="controls">
-                        <input type="text" name="endereco" id="endereco" class="form-control" required
-                            data-validation-required-message="Informe seu Endereço">
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-2">
-                <div class="control-group">
-                    <label class="control-label">Tipo de Endereço</label>
-                    <select name="id_tipoendereco" id="id_tipoendereco" class="form-control" required
-                            data-validation-required-message="Selecione">
-                        <option value="">Selecione</option>
-                        <?php
-
-                            //SELECIONAR OPÇÔES DO BANCO DE DADOS na função GetALL da classe MODEL
-                            $dados = $tipoendereco->getAll();
-
-                            foreach( $dados as $dado){
-                                echo "<option value=".$dado->idtipoendereco.">$dado->descricao</option>";
-                            }
-
-                        ?>
-                    </select>
-                </div>
-            </div>
-
-            <div class="col-md-2">
-                 <div class="control-group">
-                    <label class="control-label">Numero</label>
-                    <div class="controls">
-                        <input type="text" name="numero" id="numero" class="form-control" required
-                            data-validation-required-message="Informe o Numero">
-                    </div>
-                </div>
-            </div>
-
-        </div><!-- Final ROW -->
-
-        <div class="row">
-            <div class="col-md-3">
-                <div class="control-group">
-                    <label class="control-label">Bairro</label>
-                    <div class="controls">
-                        <input type="text" name="bairro" id="bairro" class="form-control"
-                            data-validation-required-message="Informe o Bairro" readonly>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="control-group">
-                    <label class="control-label">Complemento</label>
-                    <div class="controls">
-                        <input type="text" name="complemento" id="complemento" class="form-control" placeholder="Ponto de Referencia">
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="control-group">
-                    <label class="control-label">Estado</label>
-                    <input type="text" name="estado" id="estado" class="form-control" readonly>
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="control-group">
-                    <label class="control-label">Cidade</label>
-                    <div class="controls">
-                        <input type="text" name="cidade" id="cidade" class="form-control" readonly>
-                        <input type="hidden" name="id_cidade" id="id_cidade" class="form-control">
-                    </div>
-                </div>
-            </div>
-        </div><!-- Final ROW -->
-
-        <div class="row">
-
-            <div class="col-md-2">
-                <div class="control-group">
-                    <label class="control-label">Telefone</label>
-                    <div class="controls">
-                        <input type="text" name="telefone" id="telefone" class="form-control" required 
-                               data-validation-required-message="Informe seu Telefone">
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-2">
-                <div class="control-group">
-                    <label class="control-label">Ramal</label>
-                    <div class="controls">
-                        <input type="text" name="ramal" id="ramal" class="form-control" placeholder="Ramal">
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="control-group">
-                    <label class="control-label">Celular</label>
-                    <div class="controls">
-                        <input type="text" name="celular" id="celular" class="form-control" required 
-                               data-validation-required-message="Informe seu Celular">
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="control-group">
-                    <label class="control-label">Status</label>
-                    <select name="status" id="status" class="form-control" required
-                            data-validation-required-message="Selecione">
-                        <option value="">Selecione</option>
-                        <?php
-
-                            //SELECIONAR OPÇÔES DO BANCO DE DADOS e marcar a que retornar no JS
-                            $status = $situacao->getAll();
-                            foreach( $status as $st){
-                                echo "<option value=".$st->idsituacao.">$st->descricao</option>";
-                            }
-
-                        ?>
-                    </select>
-                </div>
-            </div>
-        </div><!-- Final ROW -->
-        <br>
-        <button class="btn btn-warning pull-left">
-            <i class="glyphicon glyphicon-floppy-save"></i>
-                Salvar 
-        </button>
-        <button type="reset" class="btn btn-danger pull-left">
-            <i class="glyphicon glyphicon-erase"></i>
-             Limpar
-        </button>
-    </section>
-</form>
-<script type="text/javascript">
-    //Script q vai preencher os campos de SELECT quando for editar
-    $("#sexo").val('');
-    $("#uf").val('');
-    $("#status").val('1');
-</script>
+</div>
 <?php $this->layout('layout.rodape'); ?>

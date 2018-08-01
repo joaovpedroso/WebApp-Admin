@@ -1,14 +1,15 @@
 <?php
+
 require_once '../Bootstrap.php';
 
+use \Psr\Http\Message\ServerRequestInterface;
+use \Psr\Http\Message\ResponseInterface;
 use Slim\App;
 use App\Controllers\UsuarioController;
 use App\Controllers\PessoaController;
 use App\Controllers\HomeController;
 use App\Controllers\TipoEnderecoController;
 use App\Controllers\AuthController;
-use App\Helpers\Session;
-use App\Helpers\Call;
 
 //Habilitar erros
 //$app = new App;
@@ -19,8 +20,6 @@ $app = new App([
         'whoops.editor'=>'netbeans',
     ]
 ]);
-
-$session = Session::getInstance();
 
 //Rota Inicial
 $app->get('/', HomeController::class.":index");
@@ -38,9 +37,6 @@ $app->get('/enderecos/adicionar', TipoEnderecoController::class.":adicionar");
 $app->post('/enderecos', TipoEnderecoController::class.":salvar");
 $app->get('/enderecos/editar/{idtipoendereco}', TipoEnderecoController::class.":editar");
 $app->get('/enderecos/deletar/{idtipoendereco}', TipoEnderecoController::class.":deletar");
-
-//Rota para a classe Call que faz a chamada das funçoes em AJAX
-$app->post('/call', Call::class . ":index");
 
 //Rota de Login
 $app->get('/login', AuthController::class .':index');

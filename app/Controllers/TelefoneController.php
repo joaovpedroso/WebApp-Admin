@@ -15,8 +15,7 @@ class TelefoneController {
             $telefone->setDdd( Util::separarDdd( Util::removerEspaco( $dados["telefone"] ) )["ddd"] );
             $telefone->setTelefone( Util::separarDdd( Util::removerEspaco( $dados["telefone"] ) )["telefone"] );
             $telefone->setIdtipotelefone("1");
-            $telefone->setIdcpf( Util::idCpf( Util::formatarCpf( $dados["cpf"] ) ) );
-            
+            $telefone->setIdcpf( Util::idCpf( Util::removerEspaco( $dados["cpf"] ) ) );
             $idtelefone = $telefone->getOneTelefone( $telefone->getIdcpf() )->idtelefone;
 
             if( empty( $idtelefone ) ){
@@ -30,7 +29,7 @@ class TelefoneController {
             $telefone->setDdd( Util::separarDdd( Util::removerEspaco( $dados["celular"] ) )["ddd"] );
             $telefone->setTelefone( Util::separarDdd( Util::removerEspaco( $dados["celular"] ) )["telefone"] );
             $telefone->setIdtipotelefone("2");
-            $telefone->setIdcpf( Util::idCpf( Util::formatarCpf( $dados["cpf"] ) ) );
+            $telefone->setIdcpf( Util::idCpf( Util::removerEspaco( $dados["cpf"] ) ) );
             $idtelefone = $telefone->getCelular( $telefone->getIdcpf() )->idtelefone;
             
             if( empty( $idtelefone ) ){

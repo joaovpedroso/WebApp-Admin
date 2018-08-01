@@ -3,7 +3,7 @@ $this->tituloPagina = "Editar Tipo Endereço";
 $this->layout('layout.cabecalho'); ?>
 <div class="container">
     
-    <form method="post" class="form" action="/enderecos">
+    <form method="post" class="form" novalidate action="/enderecos">
         
         <legend>Editar Tipo de Endereço</legend>
         <div class="row">
@@ -12,7 +12,7 @@ $this->layout('layout.cabecalho'); ?>
                 <div class="control-group">
                     <label class="control-label">Tipo de Endereco</label>
                     <div class="controls">
-                        <input type="hidden" name="idtipoendereco" value="<?=$this->dados["tipoendereco"]->idtipoendereco;?>" readonly>
+                        <input type="text" name="idtipoendereco" value="<?=$this->dados["tipoendereco"]->idtipoendereco;?>" readonly>
                         <input type="text" name="descricao" id="descricao" class="form-control" value="<?=$this->dados["tipoendereco"]->descricao;?>" required
                             data-validation-required-message="Informe uma Descrição para o Tipo">
                     </div>
@@ -20,7 +20,7 @@ $this->layout('layout.cabecalho'); ?>
             </div>
             <div class="col-md-3">
                 <br>
-                <button class="btn  btn-warning">
+                <button class="btn  btn-warning pull-right">
                     <i class="glyphicon glyphicon-floppy-save"></i>
                         Salvar 
                 </button>

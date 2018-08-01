@@ -10,9 +10,23 @@ use App\Controllers\CidadeController;
 use App\Controllers\TelefoneController;
 use App\Models\Usuario;
 use App\Models\Model;
+use App\Models\Pessoa;
 use App\Helpers\Util;
 
 class UsuarioController extends Controller{
+    
+    public function __construct() {
+        //Verificar se o Usuário está logado
+        if( !isset( $_SESSION ) ){
+            session_start();
+        }
+        
+        if( !isset( $_SESSION["usuario"]["id"] ) ){
+            header("Location: /login");
+            //Encerrar a aplicação
+            die();
+        }
+    }
     
     public function getAll(){
         $model = new Model();

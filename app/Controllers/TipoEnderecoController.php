@@ -9,7 +9,20 @@ use App\Helpers\Util;
 use PDOException;
 
 class TipoEnderecoController extends Controller{
-                
+               
+    public function __construct() {
+        //Verificar se o Usuário está logado
+        if( !isset( $_SESSION ) ){
+            session_start();
+        }
+        
+        if( !isset( $_SESSION["usuario"]["id"] ) ){
+            header("Location: /login");
+            //Encerrar a aplicação
+            die();
+        }
+    }
+    
     public function index(ServerRequestInterface $request, ResponseInterface $response){
         $tipoendereco = new TipoEnderecoController();
         $dados = $tipoendereco->getAll("tipoendereco");
